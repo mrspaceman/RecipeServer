@@ -1,0 +1,14 @@
+:sectnums:
+:sectnumlevels: 5
+:toc: left
+:toclevels: 3
+:page-layout: docs
+
+= Recipe API
+
+include::{snippets}/add-recipes/request-body.adoc[]
+include::{snippets}/add-recipes/response-body.adoc[]
+include::{snippets}/add-recipes/http-request.adoc[]
+include::{snippets}/add-recipes/http-response.adoc[]
+
+
