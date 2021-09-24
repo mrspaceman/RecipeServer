@@ -12,18 +12,19 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table
 public class Ingredient {
 
-  @Id @GeneratedValue private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-  /** The name of the ingredient */
-  private String name;
+    /** The name of the ingredient */
+    private String name;
 
-  /** A brief description of the ingredient */
-  private String description;
+    /** A brief description of the ingredient */
+    private String description;
 }

@@ -16,28 +16,28 @@ import java.util.List;
 @RestController("/recipes")
 public class RecipeController {
 
-  private final RecipeService recipeService;
+    private final RecipeService recipeService;
 
-  @Autowired
-  public RecipeController(RecipeService recipeService) {
-    this.recipeService = recipeService;
-  }
+    @Autowired
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
 
-  @PostMapping()
-  public ResponseEntity<Recipe> addRecipe(Recipe recipe) {
-    log.trace("addRecipe({})", recipe);
-    return new ResponseEntity<Recipe>(recipeService.addRecipe(recipe), HttpStatus.CREATED);
-  }
+    @PostMapping()
+    public ResponseEntity<Recipe> addRecipe(Recipe recipe) {
+        log.trace("addRecipe({})", recipe);
+        return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.CREATED);
+    }
 
-  @GetMapping()
-  public ResponseEntity<List<Recipe>> getRecipes() {
-    log.trace("getRecipes()");
-    return new ResponseEntity<List<Recipe>>(recipeService.getRecipes(), HttpStatus.OK);
-  }
+    @GetMapping()
+    public ResponseEntity<List<Recipe>> getRecipes() {
+        log.trace("getRecipes()");
+        return new ResponseEntity<>(recipeService.getRecipes(), HttpStatus.OK);
+    }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Recipe> getRecipe(@PathVariable("id") Long id) {
-    log.trace("getRecipe({})", id);
-    return new ResponseEntity<Recipe>(recipeService.getRecipe(id), HttpStatus.OK);
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<Recipe> getRecipe(@PathVariable("id") Long id) {
+        log.trace("getRecipe({})", id);
+        return new ResponseEntity<>(recipeService.getRecipe(id), HttpStatus.OK);
+    }
 }

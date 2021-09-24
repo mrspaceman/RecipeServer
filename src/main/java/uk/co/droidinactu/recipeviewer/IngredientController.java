@@ -16,29 +16,29 @@ import java.util.List;
 @RestController("/ingredients")
 public class IngredientController {
 
-  private final IngredientService ingredientService;
+    private final IngredientService ingredientService;
 
-  @Autowired
-  public IngredientController(IngredientService ingredientService) {
-    this.ingredientService = ingredientService;
-  }
+    @Autowired
+    public IngredientController(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
 
-  @PostMapping()
-  public ResponseEntity<Ingredient> addIngredient(Ingredient ingredient) {
-    log.trace("addIngredient({})", ingredient);
-    return new ResponseEntity<Ingredient>(
-        ingredientService.addIngredient(ingredient), HttpStatus.CREATED);
-  }
+    @PostMapping()
+    public ResponseEntity<Ingredient> addIngredient(Ingredient ingredient) {
+        log.trace("addIngredient({})", ingredient);
+        return new ResponseEntity<>(
+                ingredientService.addIngredient(ingredient), HttpStatus.CREATED);
+    }
 
-  @GetMapping()
-  public ResponseEntity<List<Ingredient>> getIngredients() {
-    log.trace("getIngredients()");
-    return new ResponseEntity<List<Ingredient>>(ingredientService.getIngredients(), HttpStatus.OK);
-  }
+    @GetMapping()
+    public ResponseEntity<List<Ingredient>> getIngredients() {
+        log.trace("getIngredients()");
+        return new ResponseEntity<>(ingredientService.getIngredients(), HttpStatus.OK);
+    }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Ingredient> getIngredient(@PathVariable("id") Long id) {
-    log.trace("getIngredient({})", id);
-    return new ResponseEntity<Ingredient>(ingredientService.getIngredient(id), HttpStatus.OK);
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<Ingredient> getIngredient(@PathVariable("id") Long id) {
+        log.trace("getIngredient({})", id);
+        return new ResponseEntity<>(ingredientService.getIngredient(id), HttpStatus.OK);
+    }
 }

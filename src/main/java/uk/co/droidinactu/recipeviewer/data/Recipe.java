@@ -12,21 +12,22 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table
 public class Recipe {
 
-  @Id @GeneratedValue private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-  /** The name of the recipe */
-  private String name;
+    /** The name of the recipe */
+    private String name;
 
-  /** A brief description of the recipe */
-  private String description;
+    /** A brief description of the recipe */
+    private String description;
 
-  // private List<Ingredient> ingredients;
+    // private List<Ingredient> ingredients;
 
 }
