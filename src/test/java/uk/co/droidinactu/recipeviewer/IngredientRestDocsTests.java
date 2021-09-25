@@ -113,7 +113,7 @@ public class IngredientRestDocsTests {
         Optional<Ingredient> recipe = ingredientRepository.findById(5L);
 
         this.mockMvc
-                .perform(get("/recipes/{id}", 5L))
+                .perform(get("/ingredients/{id}", 5L))
                 .andExpect(status().isOk())
                 .andDo(
                         document(

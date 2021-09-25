@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaRepositories
 @ComponentScan("uk.co.droidinactu.recipeviewer")
-public class RecipeServerConfig {}
+public class RecipeServerConfig {
+}

@@ -12,26 +12,26 @@ import java.util.Optional;
 @Service
 public class RecipeService {
 
-  private final RecipeRepository recipeRepository;
-  private final IngredientRepository ingredientRepository;
+    private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
 
-  @Autowired
-  public RecipeService(
-      IngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
-    this.ingredientRepository = ingredientRepository;
-    this.recipeRepository = recipeRepository;
-  }
+    @Autowired
+    public RecipeService(
+            IngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
+        this.ingredientRepository = ingredientRepository;
+        this.recipeRepository = recipeRepository;
+    }
 
-  public List<Recipe> getRecipes() {
-    return recipeRepository.findAll();
-  }
+    public List<Recipe> getRecipes() {
+        return recipeRepository.findAll();
+    }
 
-  public Recipe addRecipe(Recipe recipe) {
-    return recipeRepository.save(recipe);
-  }
+    public Recipe addRecipe(Recipe recipe) {
+        return recipeRepository.save(recipe);
+    }
 
-  public Recipe getRecipe(Long id) {
-    Optional<Recipe> recipe = recipeRepository.findById(id);
-    return recipe.orElse(null);
-  }
+    public Recipe getRecipe(Long id) {
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        return recipe.orElse(null);
+    }
 }

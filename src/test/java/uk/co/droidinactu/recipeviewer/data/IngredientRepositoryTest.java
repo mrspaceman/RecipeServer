@@ -1,24 +1,15 @@
 package uk.co.droidinactu.recipeviewer.data;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 class IngredientRepositoryTest {
 
     @Autowired
@@ -27,18 +18,28 @@ class IngredientRepositoryTest {
     @Autowired
     private WebApplicationContext context;
 
-    private MockMvc mockMvc;
+    private Faker faker;
+
+    private int nbrIngredients = 14;
 
     @BeforeEach
-    public void setUp(RestDocumentationContextProvider restDocumentation) {
-        this.mockMvc =
-                MockMvcBuilders.webAppContextSetup(context)
-                        .apply(documentationConfiguration(restDocumentation))
-                        .build();
+    public void setUp() {
+        faker = new Faker();
+
+        for (int x = 0; x < nbrIngredients; x++) {
+            Ingredient i = getIngredient();
+            ingredientRepository.save(i);
+        }
+    }
+
+    private Ingredient getIngredient() {
+        Ingredient i = new Ingredient();
+        i.setName(faker.food().ingredient());
+        return i;
     }
 
     @Test
-    public void sample() throws Exception {
-        this.mockMvc.perform(get("/recipes")).andExpect(status().isOk()).andDo(document("sample"));
+    public void findAll_returnsAllIngredients() {
+        assertEquals(nbrIngredients, ingredientRepository.findAll().size());
     }
 }
