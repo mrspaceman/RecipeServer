@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 @SpringBootApplication
 @EnableOpenApi
+@Import({springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class})
 public class RecipeServerApplication {
 
     @Autowired
@@ -39,7 +41,7 @@ public class RecipeServerApplication {
     }
 
     @Bean
-    public Docket petApi() {
+    public Docket recipeApi() {
         return new Docket(DocumentationType.OAS_30)
                 .select()
                 .apis(RequestHandlerSelectors.any())
