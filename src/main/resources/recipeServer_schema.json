@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecipeServerSchema",
+  "description": "A recipe used in the recipe server",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "a unique id for a recipe",
+      "type": "string"
+    },
+    "name": {
+      "description": "the name of a recipe",
+      "type": "string"
+    },
+    "description": {
+      "description": "the long description of a recipe",
+      "type": "string"
+    },
+    "serveTime": {
+      "type": "string"
+    },
+    "ingredients": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description"
+          ]
+        }
+      ]
+    },
+    "steps": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "numberMinutesCooking": {
+              "type": "integer"
+            },
+            "numberMinutesStanding": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "numberMinutesCooking",
+            "numberMinutesStanding"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "numberMinutes": {
+              "type": "integer"
+            },
+            "numberMinutesStanding": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "numberMinutes",
+            "numberMinutesStanding"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "serveTime",
+    "ingredients",
+    "steps"
+  ]
+}
+

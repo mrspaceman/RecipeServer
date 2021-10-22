@@ -1,0 +1,49 @@
+{
+  "id": "",
+  "name": "Roast Chicken",
+  "description": "",
+  "serveTime": "13:00",
+  "ingredients": [
+    {
+      "id": "",
+      "name": "Whole Chicken",
+      "description": ""
+    },
+    {
+      "id": "",
+      "name": "Carrots",
+      "description": ""
+    },
+    {
+      "id": "",
+      "name": "Broccoli",
+      "description": ""
+    },
+    {
+      "id": "",
+      "name": "Cauliflower",
+      "description": ""
+    },
+    {
+      "id": "",
+      "name": "Roast Potatoes",
+      "description": ""
+    }
+  ],
+  "steps": [
+    {
+      "id": "",
+      "name": "Oven On",
+      "description": "Turn oven on to warm up",
+      "numberMinutesCooking": 10,
+      "numberMinutesStanding": 0
+    },
+    {
+      "id": "",
+      "name": "Roast Potatoes",
+      "description": "",
+      "numberMinutes": 45,
+      "numberMinutesStanding": 0
+    }
+  ]
+}

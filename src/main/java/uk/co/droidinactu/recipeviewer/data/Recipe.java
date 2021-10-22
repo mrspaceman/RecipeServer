@@ -3,10 +3,8 @@ package uk.co.droidinactu.recipeviewer.data;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Slf4j
 @Getter
@@ -22,12 +20,20 @@ public class Recipe {
     @GeneratedValue
     private Long id;
 
-    /** The name of the recipe */
+    /**
+     * The name of the recipe
+     */
+    @Column(nullable = false)
     private String name;
 
-    /** A brief description of the recipe */
+    /**
+     * A brief description of the recipe
+     */
+    @Column()
     private String description;
 
-    // private List<Ingredient> ingredients;
+    @ManyToMany
+    @Column()
+    private List<Ingredient> ingredients;
 
 }
