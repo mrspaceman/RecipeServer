@@ -67,9 +67,9 @@ public class IngredientRestDocsTests {
         }
     }
 
-    @Disabled
+    @Disabled("Until I get spring-rest-docs working")
     @Test
-    public void addIngredients() throws Exception {
+    void addIngredients() throws Exception {
         Ingredient r = new Ingredient();
         r.setName("Test Recipe");
         r.setDescription("A sample ingredient for testing");
@@ -90,18 +90,18 @@ public class IngredientRestDocsTests {
                                                 .description("A brief description of the recipe"))));
     }
 
-    @Disabled
+    @Disabled("Until I get spring-rest-docs working")
     @Test
-    public void listIngredients() throws Exception {
+    void listIngredients() throws Exception {
         this.mockMvc
                 .perform(get("/ingredients").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(document("list-ingredients"));
     }
 
-    @Disabled
+    @Disabled("Until I get spring-rest-docs working")
     @Test
-    public void getIngredients() throws Exception {
+    void getIngredients() throws Exception {
         Long rId = 5L;
         Ingredient r = new Ingredient();
         r.setId(rId);

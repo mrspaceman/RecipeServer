@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-class IngredientRepositoryTest {
+public class IngredientRepositoryTest {
 
     @Autowired
     private IngredientRepository ingredientRepository;
@@ -38,7 +38,7 @@ class IngredientRepositoryTest {
     }
 
     @Test
-    public void sample() throws Exception {
+    void sample() throws Exception {
         this.mockMvc.perform(get("/recipes")).andExpect(status().isOk()).andDo(document("sample"));
     }
 }
