@@ -220,6 +220,13 @@
                     <include>**/application*.yml</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/banner.txt</include>
+                </includes>
+            </resource>
         </resources>
 
         <extensions>

@@ -4,5 +4,6 @@ ${AnsiColor.MAGENTA}  ____           _            ____
  |  _ <  __/ (__| | |_) |  __/___) |  __/ |   \ V /  __/ |
  |_| \_\___|\___|_| .__/ \___|____/ \___|_|    \_/ \___|_|
                   |_|
-${AnsiColor.DEFAULT}:: ${application.title} ::\t\t${application.formatted-version}
-:: Spring Boot :: \t\t\t${spring-boot.formatted-version}
+${AnsiColor.GREEN}:: @project.name@ :: @project.version@
+:: Spring Boot :: ${spring-boot.formatted-version}
+${AnsiColor.DEFAULT}

@@ -15,18 +15,18 @@ logging:
     console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
     file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%'
 
-
 spring:
   output:
     ansi:
       enabled: always
   main:
-    log-startup-info: true
     banner-mode: console
+    log-startup-info: true
   application:
     name: recipe-server
   banner:
-    location: classpath:banner.txt
+    #    location: classpath:banner.txt
+    mode: CONSOLE
   jackson:
     deserialization:
       fail-on-unknown-properties: true
