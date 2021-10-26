@@ -2,6 +2,7 @@ package uk.co.droidinactu.recipeviewer;
 
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -33,109 +34,116 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @Import({springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class})
 public class RecipeServerApplication {
 
-    @Autowired
-    private TypeResolver typeResolver;
+  @Autowired private TypeResolver typeResolver;
 
-    public static void main(String[] args) {
-        SpringApplication.run(RecipeServerApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication application = new SpringApplication(RecipeServerApplication.class);
+    application.setBannerMode(Banner.Mode.CONSOLE);
+    application.run(args);
+  }
 
-    @Bean
-    public Docket recipeApi() {
-        return new Docket(DocumentationType.OAS_30)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .pathMapping("/")
-                .directModelSubstitute(LocalDate.class, String.class)
-                .genericModelSubstitutes(ResponseEntity.class)
-                .alternateTypeRules(
-                        newRule(typeResolver.resolve(DeferredResult.class,
-                                        typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
-                                typeResolver.resolve(WildcardType.class)))
-                .useDefaultResponseMessages(false)
-                .globalResponses(HttpMethod.GET,
-                        singletonList(new ResponseBuilder()
-                                .code("500")
-                                .description("500 message")
-                                .representation(MediaType.TEXT_XML)
-                                .apply(r ->
-                                        r.model(m ->
-                                                m.referenceModel(ref ->
-                                                        ref.key(k ->
-                                                                k.qualifiedModelName(q ->
-                                                                        q.namespace("some:namespace")
-                                                                                .name("ERROR"))))))
-                                .build()))
-                .securitySchemes(singletonList(apiKey()))
-                .securityContexts(singletonList(securityContext()))
-                .enableUrlTemplating(true)
-                .globalRequestParameters(
-                        singletonList(new springfox.documentation.builders.RequestParameterBuilder()
-                                .name("someGlobalParameter")
-                                .description("Description of someGlobalParameter")
-                                .in(ParameterType.QUERY)
-                                .required(true)
-                                .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
-                                .build()))
-                .tags(new Tag("Pet Service", "All apis relating to pets"));
-    }
+  @Bean
+  public Docket recipeApi() {
+    return new Docket(DocumentationType.OAS_30)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.any())
+        .build()
+        .pathMapping("/")
+        .directModelSubstitute(LocalDate.class, String.class)
+        .genericModelSubstitutes(ResponseEntity.class)
+        .alternateTypeRules(
+            newRule(
+                typeResolver.resolve(
+                    DeferredResult.class,
+                    typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
+                typeResolver.resolve(WildcardType.class)))
+        .useDefaultResponseMessages(false)
+        .globalResponses(
+            HttpMethod.GET,
+            singletonList(
+                new ResponseBuilder()
+                    .code("500")
+                    .description("500 message")
+                    .representation(MediaType.TEXT_XML)
+                    .apply(
+                        r ->
+                            r.model(
+                                m ->
+                                    m.referenceModel(
+                                        ref ->
+                                            ref.key(
+                                                k ->
+                                                    k.qualifiedModelName(
+                                                        q ->
+                                                            q.namespace("some:namespace")
+                                                                .name("ERROR"))))))
+                    .build()))
+        .securitySchemes(singletonList(apiKey()))
+        .securityContexts(singletonList(securityContext()))
+        .enableUrlTemplating(true)
+        .globalRequestParameters(
+            singletonList(
+                new springfox.documentation.builders.RequestParameterBuilder()
+                    .name("someGlobalParameter")
+                    .description("Description of someGlobalParameter")
+                    .in(ParameterType.QUERY)
+                    .required(true)
+                    .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                    .build()))
+        .tags(new Tag("Pet Service", "All apis relating to pets"));
+  }
 
+  private ApiKey apiKey() {
+    return new ApiKey("mykey", "api_key", "header");
+  }
 
-    private ApiKey apiKey() {
-        return new ApiKey("mykey", "api_key", "header");
-    }
+  private SecurityContext securityContext() {
+    return SecurityContext.builder()
+        .securityReferences(defaultAuth())
+        .forPaths(PathSelectors.regex("/anyPath.*"))
+        .build();
+  }
 
-    private SecurityContext securityContext() {
-        return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/anyPath.*"))
-                .build();
-    }
+  List<SecurityReference> defaultAuth() {
+    AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+    authorizationScopes[0] = authorizationScope;
+    return singletonList(new SecurityReference("mykey", authorizationScopes));
+  }
 
-    List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope
-                = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return singletonList(
-                new SecurityReference("mykey", authorizationScopes));
-    }
+  @Bean
+  SecurityConfiguration security() {
+    return SecurityConfigurationBuilder.builder()
+        .clientId("test-app-client-id")
+        .clientSecret("test-app-client-secret")
+        .realm("test-app-realm")
+        .appName("test-app")
+        .scopeSeparator(",")
+        .additionalQueryStringParams(null)
+        .useBasicAuthenticationWithAccessCodeGrant(false)
+        .enableCsrfSupport(false)
+        .build();
+  }
 
-    @Bean
-    SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder()
-                .clientId("test-app-client-id")
-                .clientSecret("test-app-client-secret")
-                .realm("test-app-realm")
-                .appName("test-app")
-                .scopeSeparator(",")
-                .additionalQueryStringParams(null)
-                .useBasicAuthenticationWithAccessCodeGrant(false)
-                .enableCsrfSupport(false)
-                .build();
-    }
-
-    @Bean
-    UiConfiguration uiConfig() {
-        return UiConfigurationBuilder.builder()
-                .deepLinking(true)
-                .displayOperationId(false)
-                .defaultModelsExpandDepth(1)
-                .defaultModelExpandDepth(1)
-                .defaultModelRendering(ModelRendering.EXAMPLE)
-                .displayRequestDuration(false)
-                .docExpansion(DocExpansion.NONE)
-                .filter(false)
-                .maxDisplayedTags(null)
-                .operationsSorter(OperationsSorter.ALPHA)
-                .showExtensions(false)
-                .showCommonExtensions(false)
-                .tagsSorter(TagsSorter.ALPHA)
-                .supportedSubmitMethods(UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS)
-                .validatorUrl(null)
-                .build();
-    }
-
+  @Bean
+  UiConfiguration uiConfig() {
+    return UiConfigurationBuilder.builder()
+        .deepLinking(true)
+        .displayOperationId(false)
+        .defaultModelsExpandDepth(1)
+        .defaultModelExpandDepth(1)
+        .defaultModelRendering(ModelRendering.EXAMPLE)
+        .displayRequestDuration(false)
+        .docExpansion(DocExpansion.NONE)
+        .filter(false)
+        .maxDisplayedTags(null)
+        .operationsSorter(OperationsSorter.ALPHA)
+        .showExtensions(false)
+        .showCommonExtensions(false)
+        .tagsSorter(TagsSorter.ALPHA)
+        .supportedSubmitMethods(UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS)
+        .validatorUrl(null)
+        .build();
+  }
 }

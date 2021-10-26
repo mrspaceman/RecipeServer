@@ -15,8 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import uk.co.droidinactu.recipeviewer.data.Ingredient;
-import uk.co.droidinactu.recipeviewer.data.IngredientRepository;
+import uk.co.droidinactu.recipeviewer.entity.Ingredient;
+import uk.co.droidinactu.recipeviewer.entity.IngredientRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,87 +38,85 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureRestDocs
 public class IngredientRestDocsTests {
 
-    @Autowired
-    private IngredientRepository ingredientRepository;
+  @Autowired private IngredientRepository ingredientRepository;
 
-    @Autowired
-    private WebApplicationContext context;
+  @Autowired private WebApplicationContext context;
 
-    private MockMvc mockMvc;
+  private MockMvc mockMvc;
 
-    @BeforeEach
-    public void setUp(RestDocumentationContextProvider restDocumentation) {
-        this.mockMvc =
-                MockMvcBuilders.webAppContextSetup(context)
-                        .apply(documentationConfiguration(restDocumentation))
-                        .alwaysDo(
-                                document(
-                                        "{method-name}/{step}/",
-                                        preprocessRequest(prettyPrint()),
-                                        preprocessResponse(prettyPrint())))
-                        .build();
+  @BeforeEach
+  public void setUp(RestDocumentationContextProvider restDocumentation) {
+    this.mockMvc =
+        MockMvcBuilders.webAppContextSetup(context)
+            .apply(documentationConfiguration(restDocumentation))
+            .alwaysDo(
+                document(
+                    "{method-name}/{step}/",
+                    preprocessRequest(prettyPrint()),
+                    preprocessResponse(prettyPrint())))
+            .build();
+  }
+
+  public static String asJsonString(final Object obj) {
+    try {
+      return new ObjectMapper().writeValueAsString(obj);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+  @Disabled("Until I get spring-rest-docs working")
+  @Test
+  void addIngredients() throws Exception {
+    Ingredient r = new Ingredient();
+    r.setName("Test Recipe");
+    r.setDescription("A sample ingredient for testing");
+    this.mockMvc
+        .perform(
+            post("/ingredients")
+                .content(asJsonString(r))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isCreated())
+        .andDo(
+            document(
+                "add-ingredient",
+                requestFields(
+                    fieldWithPath("id").description("The id of the recipe"),
+                    fieldWithPath("name").description("The name of the recipe"),
+                    fieldWithPath("description")
+                        .description("A brief description of the recipe"))));
+  }
 
-    @Disabled("Until I get spring-rest-docs working")
-    @Test
-    void addIngredients() throws Exception {
-        Ingredient r = new Ingredient();
-        r.setName("Test Recipe");
-        r.setDescription("A sample ingredient for testing");
-        this.mockMvc
-                .perform(
-                        post("/ingredients")
-                                .content(asJsonString(r))
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andDo(
-                        document(
-                                "add-ingredient",
-                                requestFields(
-                                        fieldWithPath("id").description("The id of the recipe"),
-                                        fieldWithPath("name").description("The name of the recipe"),
-                                        fieldWithPath("description")
-                                                .description("A brief description of the recipe"))));
-    }
+  @Disabled("Until I get spring-rest-docs working")
+  @Test
+  void listIngredients() throws Exception {
+    this.mockMvc
+        .perform(get("/ingredients").accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andDo(document("list-ingredients"));
+  }
 
-    @Disabled("Until I get spring-rest-docs working")
-    @Test
-    void listIngredients() throws Exception {
-        this.mockMvc
-                .perform(get("/ingredients").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(document("list-ingredients"));
-    }
+  @Disabled("Until I get spring-rest-docs working")
+  @Test
+  void getIngredients() throws Exception {
+    Long rId = 5L;
+    Ingredient r = new Ingredient();
+    r.setId(rId);
+    r.setName("Test Recipe");
+    r.setDescription("A sample ingredient for testing");
+    ingredientRepository.save(r);
 
-    @Disabled("Until I get spring-rest-docs working")
-    @Test
-    void getIngredients() throws Exception {
-        Long rId = 5L;
-        Ingredient r = new Ingredient();
-        r.setId(rId);
-        r.setName("Test Recipe");
-        r.setDescription("A sample ingredient for testing");
-        ingredientRepository.save(r);
+    List<Ingredient> recipes = ingredientRepository.findAll();
+    Optional<Ingredient> recipe = ingredientRepository.findById(5L);
 
-        List<Ingredient> recipes = ingredientRepository.findAll();
-        Optional<Ingredient> recipe = ingredientRepository.findById(5L);
-
-        this.mockMvc
-                .perform(get("/recipes/{id}", 5L))
-                .andExpect(status().isOk())
-                .andDo(
-                        document(
-                                "get-ingredient-by-id",
-                                pathParameters(
-                                        parameterWithName("id").description("The id of the recipe to retrieve"))));
-    }
+    this.mockMvc
+        .perform(get("/recipes/{id}", 5L))
+        .andExpect(status().isOk())
+        .andDo(
+            document(
+                "get-ingredient-by-id",
+                pathParameters(
+                    parameterWithName("id").description("The id of the recipe to retrieve"))));
+  }
 }

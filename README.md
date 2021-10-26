@@ -5,7 +5,12 @@ This API allows Recipes to be stored and retrieved.
 it has the following endpoints:
 
 * `GET /recipes`
-    * returns a list of recipe id and names in the system
+    * returns a list of recipe id and names
+
+* `GET /ingredients`
+    * get a list of ingredients
+* `POST /ingredients`
+    * add an ingredient
 
 # API documentation
 
