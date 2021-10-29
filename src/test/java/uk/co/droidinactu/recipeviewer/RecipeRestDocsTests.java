@@ -76,7 +76,7 @@ public class RecipeRestDocsTests {
     r.setDescription("A sample recipe for testing");
     this.mockMvc
         .perform(
-            post("/ingredients")
+            post("/recipes")
                 .content(asJsonString(r))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -95,9 +95,9 @@ public class RecipeRestDocsTests {
   @Test
   void listIngredients() throws Exception {
     this.mockMvc
-        .perform(get("/ingredients").accept(MediaType.APPLICATION_JSON))
+        .perform(get("/recipes").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andDo(document("list-ingredients"));
+        .andDo(document("list-recipes"));
   }
 
   @Disabled("Until I get spring-rest-docs working")

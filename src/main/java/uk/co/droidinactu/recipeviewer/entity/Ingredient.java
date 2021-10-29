@@ -1,5 +1,6 @@
 package uk.co.droidinactu.recipeviewer.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,4 +27,13 @@ public class Ingredient {
   @Column() private String description;
 
   @ManyToMany @Column() private List<Recipe> inRecipes;
+
+  private String unit;
+  private Integer size;
+  private String container;
+
+  @JsonProperty("default_type")
+  private String defaultType;
+
+  @ElementCollection private List<String> types;
 }

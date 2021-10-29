@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class VersionController {
 
   @Value("${recipseserver.name:unknownApp}")
-  String name;
+  private String name;
 
   @Value("${recipseserver.version:unknownVersion}")
-  String version;
+  private String version;
 
   @GetMapping("/version")
   public String getVersion() {
+    log.trace(this.getClass().getName() + ": Getting Application Version");
     return "{\"name\":\"" + name + "\",\"version\": \"" + version + "\"}";
   }
 }

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "asparagus",
+    "unit": "g",
+    "size": 100,
+    "container": "pack"
+  },
+  {
+    "name": "avocado",
+    "size": 1
+  }
+]

@@ -26,19 +26,19 @@ public class RecipeController {
 
   @PostMapping()
   public ResponseEntity<Recipe> addRecipe(Recipe recipe) {
-    log.trace("addRecipe({})", recipe);
+    log.trace(this.getClass().getName() + ":addRecipe({})", recipe);
     return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.CREATED);
   }
 
   @GetMapping()
   public ResponseEntity<List<Recipe>> getRecipes() {
-    log.trace("getRecipes()");
+    log.trace(this.getClass().getName() + ":getRecipes()");
     return new ResponseEntity<>(recipeService.getRecipes(), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<Recipe> getRecipe(@PathVariable("id") Long id) {
-    log.trace("getRecipe({})", id);
+    log.trace(this.getClass().getName() + ":getRecipe({})", id);
     return new ResponseEntity<>(recipeService.getRecipe(id), HttpStatus.OK);
   }
 }

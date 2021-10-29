@@ -1,15 +1,15 @@
 package uk.co.droidinactu.recipeviewer.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Slf4j
-@Getter
-@Setter
-@ToString
+@Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -25,5 +25,12 @@ public class Recipe {
   /** A brief description of the recipe */
   @Column() private String description;
 
-  @ManyToMany @Column() private List<Ingredient> ingredients;
+  private String imageURL;
+  private String originalURL;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  private List<RecipeIngredient> ingredients;
+
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
+  private List<RecipeStep> steps;
 }

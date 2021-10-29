@@ -26,19 +26,19 @@ public class IngredientController {
 
   @PostMapping("/ingredients")
   public ResponseEntity<Ingredient> addIngredient(Ingredient ingredient) {
-    log.trace("addIngredient({})", ingredient);
+    log.trace(this.getClass().getName() + ": addIngredient({})", ingredient);
     return new ResponseEntity<>(ingredientService.addIngredient(ingredient), HttpStatus.CREATED);
   }
 
   @GetMapping("/ingredients")
   public ResponseEntity<List<Ingredient>> getIngredients() {
-    log.trace("getIngredients()");
+    log.trace(this.getClass().getName() + ": getIngredients()");
     return new ResponseEntity<>(ingredientService.getIngredients(), HttpStatus.OK);
   }
 
   @GetMapping("/ingredients/{id}")
   public ResponseEntity<Ingredient> getIngredient(@PathVariable("id") Long id) {
-    log.trace("getIngredient({})", id);
+    log.trace(this.getClass().getName() + ": getIngredient({})", id);
     return new ResponseEntity<>(ingredientService.getIngredient(id), HttpStatus.OK);
   }
 }

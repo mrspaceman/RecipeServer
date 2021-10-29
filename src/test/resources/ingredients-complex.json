@@ -1,0 +1,20 @@
+[
+  {
+    "name": "bananas",
+    "size": 1,
+    "default_type": "large",
+    "types": [
+      "large",
+      "medium"
+    ]
+  },
+  {
+    "name": "basil",
+    "unit": "g",
+    "types": [
+      "dried",
+      "fresh"
+    ],
+    "default_type": "dried"
+  }
+]
