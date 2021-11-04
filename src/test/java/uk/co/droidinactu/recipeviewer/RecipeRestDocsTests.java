@@ -15,8 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import uk.co.droidinactu.recipeviewer.entity.IngredientRepository;
 import uk.co.droidinactu.recipeviewer.entity.Recipe;
+import uk.co.droidinactu.recipeviewer.entity.RecipeIngredientRepository;
 import uk.co.droidinactu.recipeviewer.entity.RecipeRepository;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class RecipeRestDocsTests {
 
   @Autowired private RecipeRepository recipeRepository;
 
-  @Autowired private IngredientRepository ingredientRepository;
+  @Autowired private RecipeIngredientRepository ingredientRepository;
 
   @Autowired private WebApplicationContext context;
 
@@ -70,7 +70,7 @@ public class RecipeRestDocsTests {
 
   @Disabled("Until I get spring-rest-docs working")
   @Test
-  void addRecipes() throws Exception {
+  void testAddRecipes() throws Exception {
     Recipe r = new Recipe();
     r.setName("Test Recipe");
     r.setDescription("A sample recipe for testing");
@@ -93,7 +93,7 @@ public class RecipeRestDocsTests {
 
   @Disabled("Until I get spring-rest-docs working")
   @Test
-  void listIngredients() throws Exception {
+  void testListIngredients() throws Exception {
     this.mockMvc
         .perform(get("/recipes").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())

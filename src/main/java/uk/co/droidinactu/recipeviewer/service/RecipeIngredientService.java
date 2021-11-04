@@ -2,7 +2,7 @@ package uk.co.droidinactu.recipeviewer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.co.droidinactu.recipeviewer.entity.Recipe;
+import uk.co.droidinactu.recipeviewer.entity.RecipeIngredient;
 import uk.co.droidinactu.recipeviewer.entity.RecipeIngredientRepository;
 import uk.co.droidinactu.recipeviewer.entity.RecipeRepository;
 
@@ -10,28 +10,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RecipeService {
+public class RecipeIngredientService {
 
   private final RecipeRepository recipeRepository;
   private final RecipeIngredientRepository ingredientRepository;
 
   @Autowired
-  public RecipeService(
+  public RecipeIngredientService(
       RecipeIngredientRepository ingredientRepository, RecipeRepository recipeRepository) {
     this.ingredientRepository = ingredientRepository;
     this.recipeRepository = recipeRepository;
   }
 
-  public List<Recipe> getRecipes() {
-    return recipeRepository.findAll();
+  public List<RecipeIngredient> getIngredients() {
+    return ingredientRepository.findAll();
   }
 
-  public Recipe addRecipe(Recipe recipe) {
-    return recipeRepository.save(recipe);
+  public RecipeIngredient addIngredient(RecipeIngredient ingredient) {
+    return ingredientRepository.save(ingredient);
   }
 
-  public Recipe getRecipe(Long id) {
-    Optional<Recipe> recipe = recipeRepository.findById(id);
-    return recipe.orElse(null);
+  public RecipeIngredient getIngredient(Long id) {
+    Optional<RecipeIngredient> ingredient = ingredientRepository.findById(id);
+    return ingredient.orElse(null);
   }
 }

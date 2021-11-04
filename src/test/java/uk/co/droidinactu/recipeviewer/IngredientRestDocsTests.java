@@ -15,8 +15,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import uk.co.droidinactu.recipeviewer.entity.Ingredient;
-import uk.co.droidinactu.recipeviewer.entity.IngredientRepository;
+import uk.co.droidinactu.recipeviewer.entity.RecipeIngredient;
+import uk.co.droidinactu.recipeviewer.entity.RecipeIngredientRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureRestDocs
 public class IngredientRestDocsTests {
 
-  @Autowired private IngredientRepository ingredientRepository;
+  @Autowired private RecipeIngredientRepository ingredientRepository;
 
   @Autowired private WebApplicationContext context;
 
@@ -68,7 +68,7 @@ public class IngredientRestDocsTests {
   @Disabled("Until I get spring-rest-docs working")
   @Test
   void addIngredients() throws Exception {
-    Ingredient r = new Ingredient();
+    RecipeIngredient r = new RecipeIngredient();
     r.setName("Test Recipe");
     r.setDescription("A sample ingredient for testing");
     this.mockMvc
@@ -101,14 +101,14 @@ public class IngredientRestDocsTests {
   @Test
   void getIngredients() throws Exception {
     Long rId = 5L;
-    Ingredient r = new Ingredient();
+    RecipeIngredient r = new RecipeIngredient();
     r.setId(rId);
     r.setName("Test Recipe");
     r.setDescription("A sample ingredient for testing");
     ingredientRepository.save(r);
 
-    List<Ingredient> recipes = ingredientRepository.findAll();
-    Optional<Ingredient> recipe = ingredientRepository.findById(5L);
+    List<RecipeIngredient> recipes = ingredientRepository.findAll();
+    Optional<RecipeIngredient> recipe = ingredientRepository.findById(5L);
 
     this.mockMvc
         .perform(get("/recipes/{id}", 5L))

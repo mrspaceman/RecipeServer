@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uk.co.droidinactu.recipeviewer.entity.Recipe;
 import uk.co.droidinactu.recipeviewer.service.RecipeService;
 
@@ -25,7 +22,7 @@ public class RecipeController {
   }
 
   @PostMapping()
-  public ResponseEntity<Recipe> addRecipe(Recipe recipe) {
+  public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe recipe) {
     log.trace(this.getClass().getName() + ":addRecipe({})", recipe);
     return new ResponseEntity<>(recipeService.addRecipe(recipe), HttpStatus.CREATED);
   }

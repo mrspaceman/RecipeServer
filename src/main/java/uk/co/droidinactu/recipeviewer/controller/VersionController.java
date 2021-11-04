@@ -20,4 +20,9 @@ public class VersionController {
     log.trace(this.getClass().getName() + ": Getting Application Version");
     return "{\"name\":\"" + name + "\",\"version\": \"" + version + "\"}";
   }
+
+  public void calculateDaysBetweenDates() {
+    log.trace(this.getClass().getName() + ": Calculating Days Between Dates");
+    int daysBetween = 0;
+  }
 }

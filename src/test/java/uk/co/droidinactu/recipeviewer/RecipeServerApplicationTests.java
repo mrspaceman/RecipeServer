@@ -9,5 +9,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 class RecipeServerApplicationTests {
 
   @Test
-  void contextLoads() {}
+  void testContextLoads() {}
 }
