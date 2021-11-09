@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: recipe-server
+  main:
+    banner-mode: console
+---
+spring:
+  profiles: dev
+---
+spring:
+  profiles: sit
+---
+spring:
+  profiles: uat
+---
+spring:
+  profiles: nft
+---
+spring:
+  profiles: prd
+  
