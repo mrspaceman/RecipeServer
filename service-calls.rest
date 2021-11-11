@@ -1,0 +1,15 @@
+http://localhost:8080/recipeserver/v1/version
+
+###
+
+ingredient = POST http://localhost:8080/recipeserver/v1/ingredients HTTP/1.1
+content-type: application/json
+
+{
+  "name": "apple",
+  "size": 1
+}
+
+###
+ingredient_list = http://localhost:8080/recipeserver/v1/ingredients
+

@@ -2,6 +2,13 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd"
          name="Maven">
+    <publishDate position="left"/>
+
+    <poweredBy>
+        <logo name="Maven" href="https://maven.apache.org/"
+              img="https://maven.apache.org/images/logos/maven-feather.png"/>
+    </poweredBy>
+
     <bannerLeft>
         <name>Maven</name>
         <src>https://maven.apache.org/images/apache-maven-project.png</src>

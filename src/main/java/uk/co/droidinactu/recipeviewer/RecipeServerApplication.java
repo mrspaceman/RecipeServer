@@ -91,7 +91,7 @@ public class RecipeServerApplication {
                     .required(true)
                     .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
                     .build()))
-        .tags(new Tag("Pet Service", "All apis relating to pets"));
+        .tags(new Tag("Recipe Server", "All apis relating to recipes"));
   }
 
   private ApiKey apiKey() {

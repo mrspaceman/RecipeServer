@@ -14,6 +14,7 @@
         <src>https://maven.apache.org/images/apache-maven-project.png</src>
         <href>https://maven.apache.org/</href>
     </bannerLeft>
+
     <bannerRight>
         <src>https://maven.apache.org/images/maven-small.gif</src>
     </bannerRight>
